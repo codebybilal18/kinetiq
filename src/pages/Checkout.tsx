@@ -61,14 +61,14 @@ const Checkout = () => {
 
   const handlePayment = async () => {
     setIsProcessing(true);
-    
+
     // Simulate payment processing
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     setIsProcessing(false);
     setOrderComplete(true);
     clearCart();
-    
+
     toast({
       title: "Order Complete!",
       description: "Your elite gear is on its way. Prepare for peak performance.",
@@ -105,16 +105,16 @@ const Checkout = () => {
           >
             <Check className="w-12 h-12 sm:w-16 sm:h-16 text-black" />
           </motion.div>
-          
+
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
             ORDER
             <span className="text-performance block">COMPLETE</span>
           </h1>
-          
+
           <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8">
             Your elite gear is being prepared. Expect peak performance delivery within 2-3 business days.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="outline" onClick={() => navigate('/')}>
               Back to Home
@@ -152,26 +152,23 @@ const Checkout = () => {
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
                 <motion.div
-                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
-                    step.completed
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${step.completed
                       ? 'bg-neon-green text-black'
                       : currentStep === step.id
-                      ? 'bg-accent text-accent-foreground shadow-glow'
-                      : 'bg-muted text-muted-foreground'
-                  }`}
+                        ? 'bg-accent text-accent-foreground shadow-glow'
+                        : 'bg-muted text-muted-foreground'
+                    }`}
                   whileHover={{ scale: 1.1 }}
                 >
                   {step.completed ? <Check className="w-4 h-4 sm:w-5 sm:h-5" /> : step.id}
                 </motion.div>
-                <span className={`ml-2 font-medium text-sm sm:text-base ${
-                  currentStep === step.id ? 'text-foreground' : 'text-muted-foreground'
-                }`}>
+                <span className={`hidden sm:block ml-2 font-medium text-sm sm:text-base ${currentStep === step.id ? 'text-foreground' : 'text-muted-foreground'
+                  }`}>
                   {step.title}
                 </span>
                 {index < steps.length - 1 && (
-                  <div className={`w-12 sm:w-16 h-0.5 mx-3 sm:mx-4 transition-all duration-300 ${
-                    step.completed ? 'bg-neon-green' : 'bg-muted'
-                  }`} />
+                  <div className={`w-12 sm:w-16 h-0.5 mx-3 sm:mx-4 transition-all duration-300 ${step.completed ? 'bg-neon-green' : 'bg-muted'
+                    }`} />
                 )}
               </div>
             ))}
@@ -234,7 +231,7 @@ const Checkout = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
@@ -371,8 +368,8 @@ const Checkout = () => {
                   <Button variant="outline" onClick={handlePrevStep}>
                     Previous
                   </Button>
-                  <Button 
-                    onClick={handlePayment} 
+                  <Button
+                    onClick={handlePayment}
                     disabled={isProcessing}
                     className="btn-elite flex-1"
                   >
@@ -399,7 +396,7 @@ const Checkout = () => {
               className="product-card sticky top-24 sm:top-32"
             >
               <h3 className="font-display text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Order Summary</h3>
-              
+
               <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
                 {items.map((item) => (
                   <div key={item.id} className="flex justify-between text-sm sm:text-base">
@@ -410,7 +407,7 @@ const Checkout = () => {
               </div>
 
               <Separator className="mb-4" />
-              
+
               <div className="space-y-2 mb-4 sm:mb-6 text-sm sm:text-base">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
@@ -427,7 +424,7 @@ const Checkout = () => {
               </div>
 
               <Separator className="mb-4" />
-              
+
               <div className="flex justify-between font-display text-lg sm:text-xl font-bold">
                 <span>TOTAL:</span>
                 <span className="text-accent">${(totalValue * 1.1).toFixed(2)}</span>

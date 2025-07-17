@@ -25,22 +25,25 @@ const Cart = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <Button
-          onClick={() => setIsOpen(true)}
-          className="btn-elite rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-glow relative p-0"
-        >
-          <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
+        <div className="relative">
+          <Button
+            onClick={() => setIsOpen(true)}
+            className="btn-elite rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-glow p-0 flex items-center justify-center"
+          >
+            <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
+          </Button>
+
           {totalItems > 0 && (
             <motion.span
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-accent text-white text-xs font-bold rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center min-w-0 leading-none"
+              className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-accent text-white text-xs font-bold rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center min-w-0 leading-none border-2 border-background"
               style={{ fontSize: totalItems > 99 ? '8px' : '10px' }}
             >
               {totalItems > 99 ? '99+' : totalItems}
             </motion.span>
           )}
-        </Button>
+        </div>
       </motion.div>
 
       {/* Cart Sidebar */}

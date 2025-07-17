@@ -20,6 +20,7 @@ import forceBandImage from '@/assets/force-band.jpg';
 import frostPulseImage from '@/assets/frost-pulse-bottle.jpg';
 import titanGuardImage from '@/assets/titan-guard.jpg';
 import Footer from '@/components/Footer';
+import Navigation from '@/components/Navigation';
 
 interface Product {
   id: string;
@@ -200,6 +201,7 @@ const Products = () => {
 
   return (
     <div className="min-h-screen">
+      <Navigation />
       {/* Dynamic Hero Section */}
       <motion.section
         key={categoryFilter}
