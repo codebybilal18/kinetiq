@@ -5,7 +5,6 @@ import { useCart } from '@/components/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import Cart from '@/components/Cart';
 import ProductCard from '@/components/ProductCard';
-import ProductModal from '@/components/ProductModal';
 import FilterDropdown from '@/components/FilterDropdown';
 import SortDropdown from '@/components/SortDropdown';
 
@@ -142,8 +141,6 @@ const Products = () => {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
   const [typeFilter, setTypeFilter] = useState<TypeFilter>('all');
   const [sortBy, setSortBy] = useState<SortOption>('performance');
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { addToCart } = useCart();
   const { toast } = useToast();
@@ -166,23 +163,6 @@ const Products = () => {
       title: "Added to Cart!",
       description: `${product.name} has been added to your cart.`,
     });
-  };
-
-  const handleQuickView = (product: Product) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedProduct(null);
-  };
-
-  const getActiveFilterCount = () => {
-    let count = 0;
-    if (categoryFilter !== 'all') count++;
-    if (typeFilter !== 'all') count++;
-    return count;
   };
 
   const resetFilters = () => {
@@ -223,7 +203,7 @@ const Products = () => {
       {/* Dynamic Hero Section */}
       <motion.section
         key={categoryFilter}
-        className={`relative h-[50vh] flex items-center justify-center overflow-hidden ${currentTheme.background}`}
+        className={`relative h-[40vh] sm:h-[50vh] flex items-center justify-center overflow-hidden ${currentTheme.background}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
@@ -240,15 +220,15 @@ const Products = () => {
 
         {/* Hero Content */}
         <motion.div
-          className="relative z-10 text-center text-white max-w-4xl mx-auto px-4"
+          className="relative z-10 text-center text-white container-responsive"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.8 }}
         >
-          <h1 className="font-display text-4xl md:text-6xl font-bold mb-4">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
             {currentTheme.title}
           </h1>
-          <p className="text-lg md:text-xl opacity-90">
+          <p className="text-base sm:text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
             {currentTheme.tagline}
           </p>
         </motion.div>
@@ -256,11 +236,11 @@ const Products = () => {
 
       {/* Compact Controls Bar */}
       <div className="bg-background/95 backdrop-blur-md border-b border-border py-3">
-        <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
-          <h2 className="font-display text-2xl font-bold">
+        <div className="container-responsive flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <h2 className="font-display text-xl sm:text-2xl font-bold">
             {filteredAndSortedProducts.length} Products
           </h2>
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
             <FilterDropdown
               categoryFilter={categoryFilter}
               typeFilter={typeFilter}
@@ -273,13 +253,13 @@ const Products = () => {
       </div>
 
       {/* Products Grid */}
-      <section className="py-8 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-6 sm:py-8">
+        <div className="container-responsive">
           {/* Products Grid */}
           <AnimatePresence mode="wait">
             <motion.div
               key={`${categoryFilter}-${typeFilter}-${sortBy}`}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -289,7 +269,6 @@ const Products = () => {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  onQuickView={handleQuickView}
                   onAddToCart={handleAddToCart}
                   index={index}
                 />
@@ -300,14 +279,14 @@ const Products = () => {
           {/* No Results */}
           {filteredAndSortedProducts.length === 0 && (
             <motion.div
-              className="text-center py-16"
+              className="text-center py-12 sm:py-16"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
-              <h3 className="font-display text-2xl font-bold mb-4">
+              <h3 className="font-display text-xl sm:text-2xl font-bold mb-4">
                 No Products Found
               </h3>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground mb-6 sm:mb-8 text-sm sm:text-base">
                 Try adjusting your filters to see more products.
               </p>
               <button
@@ -320,14 +299,6 @@ const Products = () => {
           )}
         </div>
       </section>
-
-      {/* Product Modal */}
-      <ProductModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onAddToCart={handleAddToCart}
-      />
 
       {/* Cart */}
       <Cart />

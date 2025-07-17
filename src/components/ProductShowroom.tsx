@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import { Zap, Activity, Thermometer, Shield } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { useCart } from './CartContext';
 import { useToast } from '@/hooks/use-toast';
 import apexGripImage from '@/assets/apex-grip-gloves.jpg';
@@ -9,7 +7,6 @@ import forceBandImage from '@/assets/force-band.jpg';
 import frostPulseImage from '@/assets/frost-pulse-bottle.jpg';
 import titanGuardImage from '@/assets/titan-guard.jpg';
 import ProductCard from '@/components/ProductCard';
-import ProductModal from '@/components/ProductModal';
 
 interface Product {
   id: string;
@@ -96,19 +93,8 @@ const products: Product[] = [
 ];
 
 const ProductShowroom = () => {
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { addToCart } = useCart();
   const { toast } = useToast();
-
-  const openProductModal = (product: Product) => {
-    setSelectedProduct(product);
-  };
-
-  const closeProductModal = () => {
-    setSelectedProduct(null);
-  };
 
   const handleAddToCart = (product: Product) => {
     addToCart({
@@ -123,56 +109,38 @@ const ProductShowroom = () => {
     });
   };
 
-  const handleQuickView = (product: Product) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedProduct(null);
-  };
-
   return (
-    <section id="products" className="py-20 px-4 bg-gradient-hero">
-      <div className="max-w-7xl mx-auto">
+    <section id="products" className="py-16 sm:py-20 bg-gradient-hero">
+      <div className="container-responsive">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="font-display text-6xl md:text-7xl font-bold mb-6">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
             PERFORMANCE
             <span className="text-performance block">REDEFINED</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Elite gear engineered for athletes who demand precision, power, and performance beyond limits.
           </p>
         </motion.div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {products.map((product, index) => (
             <ProductCard
               key={product.id}
               product={product}
-              onQuickView={handleQuickView}
               onAddToCart={handleAddToCart}
               index={index}
             />
           ))}
         </div>
       </div>
-
-      <ProductModal
-        product={selectedProduct}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onAddToCart={handleAddToCart}
-      />
     </section>
   );
 };

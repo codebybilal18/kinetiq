@@ -4,40 +4,40 @@ import { ShoppingBag, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from './CartContext';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { items, removeFromCart, updateQuantity, clearCart, totalItems, totalPrice } = useCart();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
-    toast({
-      title: "Checkout Initiated",
-      description: "Redirecting to secure checkout...",
-    });
-    // In a real app, this would redirect to checkout
+    navigate('/checkout');
+    setIsOpen(false);
   };
 
   return (
     <>
       {/* Cart Trigger */}
       <motion.div
-        className="fixed bottom-8 right-8 z-40"
+        className="fixed bottom-6 sm:bottom-8 right-4 sm:right-8 z-40"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
         <Button
           onClick={() => setIsOpen(true)}
-          className="btn-elite rounded-full w-16 h-16 shadow-glow relative"
+          className="btn-elite rounded-full w-14 h-14 sm:w-16 sm:h-16 shadow-glow relative p-0"
         >
-          <ShoppingBag className="w-6 h-6" />
+          <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
           {totalItems > 0 && (
             <motion.span
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full w-6 h-6 flex items-center justify-center font-bold"
+              className="absolute -top-1 -right-1 sm:-top-2 sm:-right-2 bg-accent text-white text-xs font-bold rounded-full w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center min-w-0 leading-none"
+              style={{ fontSize: totalItems > 99 ? '8px' : '10px' }}
             >
-              {totalItems}
+              {totalItems > 99 ? '99+' : totalItems}
             </motion.span>
           )}
         </Button>
@@ -62,11 +62,11 @@ const Cart = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-              className="fixed right-0 top-0 h-full w-full max-w-md bg-background border-l border-border z-50 flex flex-col"
+              className="fixed right-0 top-0 h-full w-full max-w-sm sm:max-w-md bg-background border-l border-border z-50 flex flex-col"
             >
               {/* Header */}
-              <div className="flex items-center justify-between p-6 border-b border-border">
-                <h2 className="font-display text-2xl font-bold">
+              <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border">
+                <h2 className="font-display text-xl sm:text-2xl font-bold">
                   CART ({totalItems})
                 </h2>
                 <Button
@@ -79,11 +79,11 @@ const Cart = () => {
               </div>
 
               {/* Cart Items */}
-              <div className="flex-1 overflow-y-auto p-6">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-6">
                 {items.length === 0 ? (
-                  <div className="text-center py-12">
-                    <ShoppingBag className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-muted-foreground text-lg">Your cart is empty</p>
+                  <div className="text-center py-8 sm:py-12">
+                    <ShoppingBag className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-muted-foreground mb-4" />
+                    <p className="text-muted-foreground text-base sm:text-lg">Your cart is empty</p>
                     <p className="text-sm text-muted-foreground mt-2">
                       Add some elite gear to get started
                     </p>
@@ -97,17 +97,17 @@ const Cart = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="bg-card border border-border rounded-lg p-4"
+                        className="bg-card border border-border rounded-lg p-3 sm:p-4"
                       >
-                        <div className="flex gap-4">
+                        <div className="flex gap-3 sm:gap-4">
                           <img
                             src={item.image}
                             alt={item.name}
-                            className="w-16 h-16 object-cover rounded"
+                            className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded flex-shrink-0"
                           />
-                          <div className="flex-1">
-                            <h3 className="font-display font-bold text-sm">{item.name}</h3>
-                            <p className="text-accent font-bold">{item.price}</p>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-display font-bold text-sm truncate">{item.name}</h3>
+                            <p className="text-accent font-bold text-sm">{item.price}</p>
 
                             {/* Quantity Controls */}
                             <div className="flex items-center gap-2 mt-2">
@@ -115,16 +115,16 @@ const Cart = () => {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-8 h-8 p-0"
+                                className="w-6 h-6 sm:w-8 sm:h-8 p-0"
                               >
                                 <Minus className="w-3 h-3" />
                               </Button>
-                              <span className="font-medium w-8 text-center">{item.quantity}</span>
+                              <span className="font-medium w-6 sm:w-8 text-center text-sm">{item.quantity}</span>
                               <Button
                                 variant="outline"
                                 size="sm"
                                 onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-8 h-8 p-0"
+                                className="w-6 h-6 sm:w-8 sm:h-8 p-0"
                               >
                                 <Plus className="w-3 h-3" />
                               </Button>
@@ -132,7 +132,7 @@ const Cart = () => {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => removeFromCart(item.id)}
-                                className="ml-auto text-destructive hover:text-destructive"
+                                className="ml-auto text-destructive hover:text-destructive p-1"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
@@ -147,11 +147,11 @@ const Cart = () => {
 
               {/* Footer */}
               {items.length > 0 && (
-                <div className="p-6 border-t border-border">
+                <div className="p-4 sm:p-6 border-t border-border">
                   {/* Total */}
                   <div className="flex justify-between items-center mb-4">
                     <span className="font-display text-lg font-bold">TOTAL:</span>
-                    <span className="font-display text-2xl font-bold text-accent">
+                    <span className="font-display text-xl sm:text-2xl font-bold text-accent">
                       ${totalPrice.toFixed(2)}
                     </span>
                   </div>

@@ -122,11 +122,25 @@
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-body;
     overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    min-height: 100vh;
+  }
+
+  /* Ensure images are responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* Typography Classes */
@@ -142,22 +156,25 @@
 @layer components {
   /* Elite Button Variants */
   .btn-elite {
-    @apply relative overflow-hidden font-display text-lg tracking-wider uppercase;
-    @apply bg-primary text-primary-foreground px-8 py-4 rounded-lg;
+    @apply relative overflow-hidden font-display text-base sm:text-lg tracking-wider uppercase;
+    @apply bg-primary text-primary-foreground px-6 sm:px-8 py-3 sm:py-4 rounded-lg;
     @apply transform transition-all duration-300 hover:scale-105;
     @apply shadow-lg hover:shadow-performance;
+    @apply flex items-center justify-center gap-2;
   }
 
   .btn-elite::before {
     content: '';
     @apply absolute inset-0 bg-gradient-accent opacity-0 transition-opacity duration-300;
+    z-index: 1;
   }
 
   .btn-elite:hover::before {
     @apply opacity-100;
   }
 
-  .btn-elite span {
+  .btn-elite span,
+  .btn-elite svg {
     @apply relative z-10;
   }
 
@@ -178,22 +195,24 @@
     @apply opacity-100;
   }
 
-  /* Kinetic Text Animation */
+  /* Kinetic Text Animation - Responsive */
   .kinetic-text {
-    @apply font-display text-8xl md:text-9xl font-bold tracking-wider;
+    @apply font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-wider;
     background: linear-gradient(135deg, hsl(var(--foreground)), hsl(var(--accent)), hsl(var(--ion-blue)));
     background-size: 300% 300%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: gradient-shift 3s ease-in-out infinite;
+    line-height: 0.9;
   }
 
   /* Product Card Elite */
   .product-card {
-    @apply bg-card border border-border rounded-2xl p-6;
+    @apply bg-card border border-border rounded-2xl p-4 sm:p-6;
     @apply transform transition-all duration-500 hover:scale-105;
     @apply hover:shadow-elite hover:border-accent;
+    @apply w-full max-w-none;
   }
 
   /* Scroll Animations */
@@ -208,6 +227,12 @@
   /* Magnetic Effect */
   .magnetic {
     @apply transition-transform duration-200 ease-out;
+  }
+
+  /* Mobile responsive containers */
+  .container-responsive {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    width: 100%;
   }
 }
 
@@ -260,6 +285,19 @@
     @apply text-transparent bg-clip-text;
     background-image: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--ion-blue)));
   }
+
+  /* Responsive text utilities */
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl md:text-3xl;
+  }
+
+  .text-responsive-3xl {
+    @apply text-2xl sm:text-3xl md:text-4xl;
+  }
 }
 
 /* Keyframe Animations */
@@ -281,4 +319,19 @@
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  .product-card {
+    @apply p-4;
+  }
+  
+  .btn-elite {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  .kinetic-text {
+    line-height: 0.8;
+  }
 }

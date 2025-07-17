@@ -22,14 +22,14 @@ const Hero = () => {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-6xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
           {/* Main Brand Title */}
-          <h1 className="kinetic-text mb-6">
+          <h1 className="kinetic-text mb-4 sm:mb-6">
             KINETIQ
           </h1>
 
@@ -38,9 +38,9 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
-            className="mb-8"
+            className="mb-6 sm:mb-8"
           >
-            <p className="font-display text-2xl md:text-4xl text-white tracking-wider mb-4">
+            <p className="font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white tracking-wider mb-4">
               Unleash Precision.
             </p>
           </motion.div>
@@ -50,7 +50,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="mb-16"
+            className="mb-12 sm:mb-16"
           >
             <Button
               onClick={scrollToProducts}
@@ -68,7 +68,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-10"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
@@ -76,12 +76,12 @@ const Hero = () => {
           className="cursor-pointer"
           onClick={scrollToProducts}
         >
-          <ChevronDown className="w-8 h-8 text-white/70 hover:text-white transition-colors" />
+          <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/70 hover:text-white transition-colors" />
         </motion.div>
       </motion.div>
 
       {/* Performance Stats Overlay */}
-      <div className="absolute bottom-20 left-8 z-10 hidden lg:block">
+      <div className="absolute bottom-16 sm:bottom-20 left-4 sm:left-8 z-10 hidden lg:block">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
