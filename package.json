@@ -1,8 +1,12 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "kinetiq",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": {
+    "name": "Muhammad Bilal",
+    "email": "aslammbilal61@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
