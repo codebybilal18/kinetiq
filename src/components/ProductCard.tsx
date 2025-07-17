@@ -37,7 +37,7 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
 
   return (
     <motion.div
-      className="group relative product-card hover:shadow-glow transition-all duration-500"
+      className="group relative product-card hover:shadow-glow transition-all duration-500 cursor-pointer"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -46,14 +46,8 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
         ease: "easeOut"
       }}
       whileHover={{ scale: 1.02 }}
+      onClick={handleViewDetails}
     >
-      {/* New Badge */}
-      {product.isNew && (
-        <Badge className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10 bg-neon-green text-black font-display text-xs">
-          NEW
-        </Badge>
-      )}
-
       {/* Product Image */}
       <div className="relative overflow-hidden rounded-lg mb-4 sm:mb-6 group-hover:scale-105 transition-transform duration-500">
         <img
@@ -62,19 +56,6 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
           className="w-full h-40 sm:h-48 object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-        {/* Quick Actions Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center gap-2 sm:gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button
-            size="sm"
-            variant="secondary"
-            onClick={handleViewDetails}
-            className="bg-white/90 hover:bg-white text-xs sm:text-sm"
-          >
-            <Eye className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-            View Details
-          </Button>
-        </div>
       </div>
 
       {/* Product Info */}
