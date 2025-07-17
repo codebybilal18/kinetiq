@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Star, Zap, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Star, Zap, ShoppingCart, Heart, Share2, Truck, Shield, RotateCcw, Minus, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -177,7 +177,7 @@ const ProductDetail = () => {
         image: product.image
       });
     }
-    
+
     toast({
       title: "Added to Cart!",
       description: `${quantity}x ${product.name} added to your cart.`,
@@ -203,7 +203,7 @@ const ProductDetail = () => {
   return (
     <div className="min-h-screen bg-gradient-hero">
       <Navigation />
-      
+
       <div className="pt-16 sm:pt-20">
         <div className="container-responsive py-6 sm:py-8">
           {/* Breadcrumb */}
@@ -227,13 +227,13 @@ const ProductDetail = () => {
               className="space-y-4"
             >
               {/* Main Image */}
-              <div className="relative bg-gradient-to-br from-muted/50 to-muted rounded-2xl p-6 sm:p-8 aspect-square flex items-center justify-center overflow-hidden">
+              <div className="relative bg-gradient-to-br from-muted/50 to-muted rounded-2xl aspect-square flex items-center justify-center overflow-hidden">
                 <img
                   src={product.gallery[selectedImage]}
                   alt={product.name}
                   className="w-full h-full object-cover rounded-lg"
                 />
-                
+
                 {/* Badges */}
                 <div className="absolute top-3 sm:top-4 left-3 sm:left-4 space-y-2">
                   {product.isNew && (
@@ -241,9 +241,6 @@ const ProductDetail = () => {
                       NEW
                     </Badge>
                   )}
-                  <Badge variant="outline" className="capitalize font-display text-xs">
-                    {product.category}
-                  </Badge>
                 </div>
 
                 {/* Performance Indicator */}
@@ -261,9 +258,8 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImage === index ? 'border-accent' : 'border-border'
-                    }`}
+                    className={`flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === index ? 'border-accent' : 'border-border'
+                      }`}
                   >
                     <img
                       src={image}
@@ -339,20 +335,24 @@ const ProductDetail = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-4">
                   <label className="font-medium text-sm sm:text-base">Quantity:</label>
-                  <div className="flex items-center border border-border rounded-lg">
-                    <button
+                  <div className="flex items-center">
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="p-2 hover:bg-muted transition-colors"
+                      className="w-6 h-6 sm:w-8 sm:h-8 p-0"
                     >
-                      -
-                    </button>
+                      <Minus className="w-3 h-3" />
+                    </Button>
                     <span className="px-3 sm:px-4 py-2 font-medium text-sm sm:text-base">{quantity}</span>
-                    <button
+                    <Button
+                      variant="outline"
+                      size="sm"
                       onClick={() => setQuantity(quantity + 1)}
-                      className="p-2 hover:bg-muted transition-colors"
+                      className="w-6 h-6 sm:w-8 sm:h-8 p-0"
                     >
-                      +
-                    </button>
+                      <Plus className="w-3 h-3" />
+                    </Button>
                   </div>
                 </div>
 

@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import { Menu, X, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from './CartContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { totalItems } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +34,19 @@ const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const handleSectionNavigation = (sectionId: string) => {
+    const isHomePage = location.pathname === '/';
+
+    if (isHomePage) {
+      scrollToSection(sectionId);
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        scrollToSection(sectionId);
+      }, 100);
+    }
+  };
+
   const navItems = [
     { name: 'GEAR', action: () => handleNavigation('/products') },
     { name: 'ATHLETES', id: 'athletes' },
@@ -47,8 +61,8 @@ const Navigation = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-            ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-lg'
-            : 'bg-black/20 backdrop-blur-sm border-b border-white/10'
+          ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-lg'
+          : 'bg-black/20 backdrop-blur-sm border-b border-white/10'
           }`}
       >
         <div className="container-responsive">
@@ -74,7 +88,7 @@ const Navigation = () => {
               {navItems.map((item) => (
                 <button
                   key={item.name}
-                  onClick={() => item.action ? item.action() : scrollToSection(item.id)}
+                  onClick={() => item.action ? item.action() : handleSectionNavigation(item.id)}
                   className={`font-display text-sm font-medium tracking-wider hover:text-accent transition-colors ${isScrolled ? 'text-foreground' : 'text-white'
                     }`}
                 >
@@ -105,44 +119,48 @@ const Navigation = () => {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Full Screen */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-16 sm:top-20 left-0 right-0 z-40 bg-background/98 backdrop-blur-md border-b border-border md:hidden overflow-hidden"
+            className="fixed inset-0 z-40 bg-background md:hidden"
+            style={{ paddingTop: '4rem' }} // Account for navbar height
           >
-            <div className="container-responsive py-4 sm:py-6">
-              <div className="space-y-4">
-                {navItems.map((item) => (
-                  <button
+            <div className="h-full flex flex-col">
+              {/* Navigation Items */}
+              <div className="flex-1 flex flex-col justify-center items-center space-y-8 px-6">
+                {navItems.map((item, index) => (
+                  <motion.button
                     key={item.name}
-                    onClick={() => item.action ? item.action() : scrollToSection(item.id)}
-                    className="block w-full text-left font-display text-lg font-medium tracking-wider hover:text-accent transition-colors py-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    onClick={() => item.action ? item.action() : handleSectionNavigation(item.id)}
+                    className="font-display text-2xl sm:text-3xl font-bold tracking-wider text-foreground hover:text-accent transition-colors duration-300 py-2"
                   >
                     {item.name}
-                  </button>
+                  </motion.button>
                 ))}
-                
-                <div className="pt-4 border-t border-border space-y-3">
-                  <Button 
-                    variant="ghost" 
-                    className="w-full justify-start" 
-                    onClick={() => handleNavigation('/checkout')}
-                  >
-                    <ShoppingBag className="w-4 h-4 mr-2" />
-                    CART {totalItems > 0 && `(${totalItems})`}
-                  </Button>
-                  <Button 
-                    className="btn-elite w-full" 
+              </div>
+
+              {/* Bottom Action */}
+              <div className="px-6 pb-16">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Button
+                    className="btn-elite w-full h-12 text-lg"
                     onClick={() => handleNavigation('/products')}
                   >
                     <span>SHOP NOW</span>
                   </Button>
-                </div>
+                </motion.div>
               </div>
             </div>
           </motion.div>
