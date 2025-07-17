@@ -1,15 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShoppingBag, X, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from './CartContext';
-import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { items, removeFromCart, updateQuantity, clearCart, totalItems, totalPrice } = useCart();
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   const handleCheckout = () => {
@@ -65,7 +63,7 @@ const Cart = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-              className="fixed right-0 top-0 h-full w-full max-w-sm sm:max-w-md bg-background border-l border-border z-50 flex flex-col"
+              className="fixed right-0 top-0 h-full w-full max-w-full sm:max-w-md bg-background border-l border-border z-50 flex flex-col"
             >
               {/* Header */}
               <div className="flex items-center justify-between p-4 sm:p-6 border-b border-border">

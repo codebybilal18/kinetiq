@@ -101,7 +101,7 @@ const ProductCard = ({ product, onAddToCart, index }: ProductCardProps) => {
             {product.priceDisplay}
           </div>
           <Button
-            onClick={() => onAddToCart(product)}
+            onClick={(e) => { e.stopPropagation(); onAddToCart(product) }}
             className="px-3 sm:px-4 py-2 text-xs sm:text-sm flex items-center gap-1 sm:gap-2"
             size='sm'
           >
