@@ -1,29 +1,59 @@
+# KINETIQ — Elite Sports Accessories Website
 
----
-
-## 🟥 `KINETIQ – README.md`
-
-```md
-# KINETIQ – Elite Sports Accessories Website
-
-KINETIQ is a performance-driven website for a fictional high-end sports accessories brand. Built for speed and visual punch, this site delivers 3D gear previews, kinetic animations, and bold UI.
-
-## 💪 Tech Stack
-- React
-- Tailwind CSS
-- Framer Motion
-- Three.js
+KINETIQ is a high-performance, visually stunning frontend for a fictional elite sports accessories brand. Designed with bold aesthetics and buttery-smooth animations, the site showcases 3D gear previews, kinetic scroll effects, and an athlete-grade user experience that commands attention.
 
 ## 🔥 Features
-- Hero video section with call to action
-- Interactive 3D product views
-- Responsive and mobile-optimized design
-- Modern athlete-grade UX
+
+- Hero video section with animated call-to-action buttons
+- Interactive 3D product previews powered by Three.js
+- Kinetic scroll animations with Framer Motion
+- Fully responsive and mobile-optimized layout
+- Modern athlete-grade UX with bold typography
+- Dark theme design throughout
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React | UI library |
+| TypeScript | Type-safe development |
+| Tailwind CSS | Utility-first styling |
+| Framer Motion | Animations and transitions |
+| Three.js | 3D rendering and product previews |
+| Vite | Build tool and dev server |
 
 ## 🌐 Live Preview
-[Visit Site](https://kinetiq.vercel.app)
 
-## 📦 Setup
+🔗 [https://kinetiq.muhammadbilal.dev](https://kinetiq.muhammadbilal.dev)
+
+## 🚀 Getting Started
+
 ```bash
+# Clone the repository
+git clone https://github.com/codebybilal18/kinetiq.git
+
+# Navigate to the project directory
+cd kinetiq
+
+# Install dependencies
 npm install
+
+# Start the development server
 npm run dev
+```
+
+## 📸 Screenshots
+
+> _Screenshots coming soon._
+
+## 👤 Author
+
+**Muhammad Bilal**
+
+- 🌐 Portfolio: [muhammadbilal.dev](https://muhammadbilal.dev)
+- 💻 GitHub: [codebybilal18](https://github.com/codebybilal18)
+- 💼 LinkedIn: [mbilal18](https://www.linkedin.com/in/mbilal18/)
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
