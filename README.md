@@ -4,7 +4,7 @@ KINETIQ is a high-performance, visually stunning frontend for a fictional elite 
 
 ## 🔥 Features
 
-- Hero video section with animated call-to-action buttons
+- Hero section with animated call-to-action buttons
 - Interactive 3D product previews powered by Three.js
 - Kinetic scroll animations with Framer Motion
 - Fully responsive and mobile-optimized layout
@@ -24,7 +24,7 @@ KINETIQ is a high-performance, visually stunning frontend for a fictional elite 
 
 ## 🌐 Live Preview
 
-🔗 [https://kinetiq.muhammadbilal.dev](https://kinetiq.muhammadbilal.dev)
+🔗 [https://kinetiq-shopping.vercel.app](https://kinetiq-shopping.vercel.app)
 
 ## 🚀 Getting Started
 
@@ -42,15 +42,10 @@ npm install
 npm run dev
 ```
 
-## 📸 Screenshots
-
-> _Screenshots coming soon._
-
 ## 👤 Author
 
 **Muhammad Bilal**
 
-- 🌐 Portfolio: [muhammadbilal.dev](https://muhammadbilal.dev)
 - 💻 GitHub: [codebybilal18](https://github.com/codebybilal18)
 - 💼 LinkedIn: [mbilal18](https://www.linkedin.com/in/mbilal18/)
 
